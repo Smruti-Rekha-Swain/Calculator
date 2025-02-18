@@ -1,15 +1,11 @@
 function App() {
   return (
     <>
-      <div className="container-fluid text-center">
-        <div className="row col-sm-2">hii</div>
-        {/* <div className="row row-cols-auto"> */}
-        <div className="row col-sm-2">
-          <div
-            className="btn-group col"
-            role="group"
-            aria-label="Basic example"
-          >
+      <div className="container-fluid text-center d-flex flex-column w-25 align-items-center">
+        <div className="row ">hii</div>
+
+        <div className="row d-flex flex-column">
+          <div className="btn-group col" role="group">
             <button type="button" className="btn btn-primary">
               AC
             </button>
@@ -97,7 +93,6 @@ function App() {
           </div>
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 }
