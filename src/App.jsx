@@ -1,13 +1,37 @@
 import { useState } from "react";
 
 function App() {
-  const [output, setOutput] = useState(0);
+  const [output, setOutput] = useState(""); //create another state variable with const[operator,setOperater]=useState()
   const operand = [];
   const operator = [];
-  function number(inp) {}
-  function oprt() {}
+
+  function number(inp) {
+    if (output == "" && inp == 0) {
+      return;
+    }
+    setOutput(output * 10 + inp);
+    // operand[0] = output * 10 + inp;
+    // inp = operand[0];
+  }
+
+  function oprt(op) {
+    if (output === "") {
+      return;
+    }
+    if (typeof output == "number") {
+      setOutput(output + "" + op);
+    }
+    const last = output.toString().charAt(output.length-1);
+    const lastChar = ["%", "*", "-", "+","/"].includes(last);
+    if (lastChar) {
+      setOutput(output.slice(0, -1) + op);
+    }
+  }
+
   function special() {}
-  function clear() {}
+  function clear() {
+    setOutput("");
+  }
   function backspace() {}
   function dec() {}
   function calculate() {}
@@ -15,8 +39,8 @@ function App() {
   return (
     <>
       <div className="container flex-column w-50 d-flex align-items-center">
-        <div className="row ">
-          <div className="col">{output}</div>
+        <div className="row">
+          <div className="col">{output == "" ? 0 : output}</div>
         </div>
 
         <div className="row p-2">
@@ -29,102 +53,88 @@ function App() {
             </button>
             <button
               className="btn btn-outline-secondary"
-              onClick={() => oprt(this.value)}
-              value={"%"}
+              onClick={() => oprt("%")}
             >
               %
             </button>
             <button
               className="btn btn-outline-secondary"
-              onClick={() => oprt(this.value)}
-              value={"/"}
+              onClick={() => oprt("/")}
             >
               /
             </button>
 
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={7}
+              onClick={() => number(7)}
             >
               7
             </button>
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={8}
+              onClick={() => number(8)}
             >
               8
             </button>
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={9}
+              onClick={() => number(9)}
             >
               9
             </button>
             <button
               className="btn btn-outline-secondary"
-              onClick={() => oprt(this.value)}
-              value={"*"}
+              onClick={() => oprt("*")}
             >
               *
             </button>
 
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={4}
+              onClick={() => number(4)}
             >
               4
             </button>
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={5}
+              onClick={() => number(5)}
             >
               5
             </button>
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={6}
+              onClick={() => number(6)}
             >
               6
             </button>
             <button
               className="btn btn-outline-secondary"
-              onClick={() => oprt(this.value)}
-              value={"-"}
+              onClick={() => oprt("-")}
             >
               -
             </button>
 
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={1}
+              onClick={() => number(1)}
             >
               1
             </button>
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={2}
+              onClick={() => number(2)}
             >
               2
             </button>
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={3}
+              onClick={() => number(3)}
             >
               3
             </button>
             <button
               className="btn btn-outline-secondary"
-              onClick={() => oprt(this.value)}
-              value={"+"}
+              onClick={() => oprt("+")}
             >
               +
             </button>
@@ -134,8 +144,7 @@ function App() {
             </button>
             <button
               className="btn btn-outline-primary"
-              onClick={() => number(this.value)}
-              value={0}
+              onClick={() => number(0)}
             >
               0
             </button>
