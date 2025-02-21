@@ -9,32 +9,49 @@ function App() {
     if (output == "" && inp == 0) {
       return;
     }
-    setOutput(output * 10 + inp);
-    // operand[0] = output * 10 + inp;
-    // inp = operand[0];
+    setOutput(output + inp);
   }
 
   function oprt(op) {
     if (output === "") {
       return;
     }
-    if (typeof output == "number") {
-      setOutput(output + "" + op);
-    }
-    const last = output.toString().charAt(output.length-1);
-    const lastChar = ["%", "*", "-", "+","/"].includes(last);
+    const last = output.toString().charAt(output.length - 1);
+    const lastChar = ["%", "*", "-", "+", "/"].includes(last);
     if (lastChar) {
       setOutput(output.slice(0, -1) + op);
-    }
+    } else setOutput(output + op);
   }
 
-  function special() {}
+  function special() {
+    if (output == "") {
+      setOutput(output + "-");
+    }
+    const last = output.toString().charAt(output.length - 1);
+    const lastChar = ["-", "+", "*", "/", "%"].includes(last);
+    if (lastChar && last == "-") {
+      setOutput(output.slice(0, -1) + "+");
+    } else if (lastChar && last == "+") {
+      setOutput(output.slice(0, -1) + "-");
+    } else if (lastChar) {
+      setOutput(output + "-");
+    } else setOutput("-" + output);
+
+    console.log(last);
+  }
   function clear() {
     setOutput("");
   }
-  function backspace() {}
+  function backspace() {
+    if (output === "") return;
+    setOutput(output.slice(0, -1));
+  }
   function dec() {}
-  function calculate() {}
+  function calculate() {
+    if (output === "") return;
+    setOutput(eval(output).toString());
+  }
+  if (output === "0") setOutput("");
 
   return (
     <>
