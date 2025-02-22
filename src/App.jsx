@@ -2,8 +2,10 @@ import { useState } from "react";
 
 function App() {
   const [output, setOutput] = useState("");
-
+  const [isErr, setIsErr] = useState(false);
+  let isError = false;
   function number(inp) {
+    if (isErr) setIsErr(false);
     if (output == "" && inp == 0) {
       return;
     }
@@ -11,6 +13,7 @@ function App() {
   }
 
   function oprt(op) {
+    if (isErr) setIsErr(false);
     if (output === "") {
       return;
     }
@@ -22,6 +25,7 @@ function App() {
   }
 
   function special() {
+    if (isErr) setIsErr(false);
     if (!isDigit()) {
       switch (output.at(-1)) {
         case "-":
@@ -57,15 +61,18 @@ function App() {
   }
 
   function clear() {
+    if (isErr) setIsErr(false);
     setOutput("");
   }
 
   function backspace() {
+    if (isErr) setIsErr(false);
     if (output === "") return;
     setOutput(output.slice(0, -1));
   }
 
   function dec() {
+    if (isErr) setIsErr(false);
     if (output === "") {
       setOutput(output + "0.");
       return;
@@ -86,7 +93,12 @@ function App() {
 
   function calculate() {
     if (output === "") return;
-    setOutput(eval(output).toString());
+    let res = eval(output);
+    if (isFinite(res)) setOutput(eval(output).toString());
+    else {
+      setIsErr(true);
+      setOutput("");
+    }
   }
 
   function isDigit(d = output.at(-1), skipDot = false) {
@@ -106,7 +118,7 @@ function App() {
         <div className="col-2 offset-3 w-50 border border-3 px-3 mt-5">
           <div className="row my-1 border border-2">
             <div className="col text-end overflow-hidden">
-              {output == "" ? 0 : output}
+              {isErr === true ? "Infinity" : output === "" ? 0 : output}
             </div>
           </div>
           <div className="row justify-content-around gap-3">
