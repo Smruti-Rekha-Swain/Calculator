@@ -22,9 +22,8 @@ function App() {
   }
 
   function special() {
-    const last = output.at(-1);
     if (!isDigit()) {
-      switch (last) {
+      switch (output.at(-1)) {
         case "-":
           setOutput(output.slice(0, -1) + "+");
           break;
@@ -35,8 +34,25 @@ function App() {
           setOutput(output + "-");
       }
     } else {
-      // Place a "-" at the start of the current number and NOT at the start of the output
+      // AIM: Place a "-" at the start of the current number and NOT at the start of the output
+      // Traverse the string backwards until we find the start of the number.
+      let i = output.length - 1;
+      while (isDigit(output.at(i), true) && i >= 0) {
+        i--;
+      }
 
+      // Split the string into substrings at the index which the loop exited.
+      let subStr1 = output.substring(0, i + 1);
+      let subStr2 = output.substring(i + 1, output.length);
+      console.log(subStr1);
+
+      // Check if there is already any '+' or '-' operator already available in the split position.
+      if (subStr1.at(-1) == "-") {
+        setOutput(subStr1.slice(0, -1) + "+" + subStr2);
+      } else if (subStr1.at(-1) == "+") {
+        setOutput(subStr1.slice(0, -1) + "-" + subStr2);
+        //  Combine both the substrings with the '-' at position.
+      } else setOutput(subStr1 + "-" + subStr2);
     }
   }
 
@@ -77,7 +93,8 @@ function App() {
     try {
       return typeof eval(d) == "number";
     } catch (error) {
-      return false || skipDot;
+      if (skipDot && d == ".") return true;
+      return false;
     }
   }
 
