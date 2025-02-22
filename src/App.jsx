@@ -118,7 +118,13 @@ function App() {
         <div className="col-2 offset-3 w-50 border border-3 px-3 mt-5">
           <div className="row my-1 border border-2">
             <div className="col text-end overflow-hidden">
-              {isErr === true ? "Infinity" : output === "" ? 0 : output}
+              {isErr === true ? (
+                <i className="bi bi-infinity"></i>
+              ) : output === "" ? (
+                0
+              ) : (
+                output
+              )}
             </div>
           </div>
           <div className="row justify-content-around gap-3">
@@ -126,7 +132,7 @@ function App() {
               C
             </button>
             <button className="btn btn-outline-warning col" onClick={backspace}>
-              B
+              <i className="bi bi-backspace"></i>
             </button>
             <button
               className="btn btn-outline-secondary col"
@@ -239,7 +245,7 @@ function App() {
           </div>
           <div className="row justify-content-around gap-3 mt-3 mb-1">
             <button className="btn btn-outline-warning col" onClick={special}>
-              +/-
+              <i className="bi bi-plus-slash-minus"></i>
             </button>
             <button
               className="btn btn-outline-primary col"
